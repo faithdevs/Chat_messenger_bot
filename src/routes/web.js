@@ -1,7 +1,6 @@
-import express from "express";
-import homepageController from "../controllers/homepageController";
-import chatBotController from "../controllers/chatBotController";
-
+const express             = require("express");
+const homepageController  = require("../controllers/homepageController");
+const chatBotController   = require("../controllers/chatBotController");
 let router = express.Router();
 
 let initWebRoutes = (app)=> {

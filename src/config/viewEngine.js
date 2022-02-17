@@ -1,4 +1,4 @@
-import express from "express";
+const express = require("express");
 
 /*
 Config view engine for node app
