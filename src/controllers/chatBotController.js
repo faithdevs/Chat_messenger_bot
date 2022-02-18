@@ -1,5 +1,4 @@
 require("dotenv").config();
-const { response } = require("express");
 const request = require("request");
 
 let postWebhook = (req, res) =>{
@@ -42,7 +41,7 @@ let postWebhook = (req, res) =>{
 
 let getWebhook = (req, res) => {
     // Your verify token. Should be a random string.
-    let VERIFY_TOKEN = "process.env.MY_VERIFY_FB_TOKEN";
+    let VERIFY_TOKEN = process.env.MY_VERIFY_FB_TOKEN;
 
     // Parse the query params
     let mode = req.query['hub.mode'];
@@ -173,7 +172,7 @@ function handleMessage(sender_psid, message) {
         return;
     }
 
-    let entitiesArr = [ "wit$greetings", "wit$thanks", "wit$bye", "wit$contact", "wit$age-of-person", "wit$sentiment"];
+    let entitiesArr = [ "wit$greetings", "wit$thanks", "wit$bye" ];
     let entityChosen = "";
     entitiesArr.forEach((name) => {
         let entity = firstTrait(message.nlp, name);
@@ -183,52 +182,22 @@ function handleMessage(sender_psid, message) {
     });
 
     if(entityChosen === ""){
-        
-            response = {
-                "text": "(By continuing this conversation you agree to usage of your personal information. Say 'No' if you wish to stop the conversation.) \n\nHello! Would you like to answer few questions?",
-                "quick_replies":[
-                  {
-                    "content_type":"text",
-                    "title":"Sure",
-                    "payload": "sure"
-                  },{
-                    "content_type":"text",
-                    "title":"Not now",
-                    "payload": "not now"
-                  }
-                ]
-            }
-            callSendAPI(sender_psid,``, response);
-        
-        // {
-        //     callSendAPI(sender_psid,`The bot needs more training, try to say "thanks a lot" or "hi" to the bot` );
-        // }
-    }
+        //default
+        callSendAPI(sender_psid,`The bot is needed more training, try to say "thanks a lot" or "hi" to the bot` );
+    }else{
        if(entityChosen === "wit$greetings"){
            //send greetings message
-           callSendAPI(sender_psid,'Hi there! ');
+           callSendAPI(sender_psid,'Hi there! This bot is created by Hary Pham. Watch more videos on HaryPhamDev Channel!');
        }
-       if(entityChosen === "wit$sentiment"){
-        //ask questions
-        callSendAPI(sender_psid,'how are you today?');
-        }
-        if(entityChosen === "wit$contact"){
-            //ask questions
-            callSendAPI(sender_psid,' My name is Faith, What is your name?');
-        }
-        if(entityChosen === "wit$age_of_person"){
-            //ask questions
-            callSendAPI(sender_psid,'When is your birthday?');
-        }
        if(entityChosen === "wit$thanks"){
            //send thanks message
-           callSendAPI(sender_psid,`You 're welcome! If you wish to have this conversation again say hi. 🖐`);
+           callSendAPI(sender_psid,`You 're welcome!`);
        }
         if(entityChosen === "wit$bye"){
             //send bye message
-            callSendAPI(sender_psid,'hope to chat with you again 🖐 ');
+            callSendAPI(sender_psid,'bye-bye!');
         }
-    
+    }
 }
 
 let callSendAPIWithTemplate = (sender_psid) => {
