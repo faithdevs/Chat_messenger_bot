@@ -1,6 +1,5 @@
 require("dotenv").config();
 const request = require("request");
-// const Message = require("../models/Message");
 
 // global variables used for conversation information
 let USER_FIRST_NAME = "";
@@ -8,106 +7,7 @@ let USER_BIRTH_DATE = "";
 let LATEST_MESSAGE = "";
 let PREV_OF_LATEST = "";
 let PREV_OF_PREV = "";
-let WEBHOOK_MESS = "";
 let SENDER_ID = "";
-let COUNT_MESSAGES = 0;
-
-// function to check whether user is in DB
-// and, if successful, return position in DB
-// function checkInDB(arrMess, givenId=SENDER_ID){
-//     for(let i = 0; i < arrMess.length; i++){
-//         if(arrMess[i].senderId === givenId){
-//             return i;
-//         }
-//     }
-//     return -1;
-// }
-
-// // function to add a message to DB
-// let postMessage = (req, res) => {
-//     if ((COUNT_MESSAGES % 2) == 0)
-//         return;
-
-//     let MongoClient = require('mongodb').MongoClient;
-
-//     // creating the message object
-//     let obj = new Message({
-//         senderId: SENDER_ID,
-//         text: [WEBHOOK_MESS]
-//     });
-
-//     console.log("OBJ: " + obj);
-
-//     MongoClient.connect(
-//         process.env.DB_CONNECTION, {
-//             auth: {
-//                 user: process.env.MONGO_DB_USER,
-//                 password: process.env.MONGO_DB_PASSWORD
-
-//             }
-            
-//         },
-//         {
-//             useNewUrlParser: true, 
-//             useUnifiedTopology: true
-//         }, 
-//         function(err, client) {
-//             if (err){
-//                 throw err;
-//             } 
-            
-//             console.log("Connected to the server for inserting message");
-
-//             // Get database name
-//             let db = client.db(process.env.DB_NAME);
-
-//             // we search if user already in database
-//             db.collection(process.env.DB_COLLECTION).find({}).toArray(function(err, result) {
-//                 if (err){
-//                     throw err;
-//                 }
-
-//                 console.log("Display data: " + result);
-
-//                 // check whether user is in DB
-//                 let posInDB = checkInDB(result);
-
-//                 // if user is not in DB
-//                 if (posInDB < 0){
-//                     db.collection(process.env.DB_COLLECTION).insertOne(obj, function(error, res) {
-//                         if (error) {
-//                             throw error;
-//                         }
-                        
-//                         console.log("1 message inserted for not in DB userId=" + SENDER_ID);
-//                         client.close();
-//                     });
-//                 }
-//                 // user is in DB
-//                 else{
-//                     let usrArrMess = result[posInDB].text;
-//                     console.log("User messages: " + usrArrMess);
-
-//                     let newText = [];
-//                     for (let i = 0; i < usrArrMess.length; i++)
-//                         newText.push(usrArrMess[i]);
-//                     newText.push(WEBHOOK_MESS);
-
-//                     // or with spread operator
-//                     // newText = [...usrArrMess];
-
-//                     db.collection(process.env.DB_COLLECTION).update(
-//                         {_id : result[posInDB]._id},
-//                         {$set : {text : newText}}
-//                     )
-
-//                     console.log("1 message inserted for in DB userId=" + SENDER_ID);
-//                     client.close();
-//                 }
-//             });
-//         }
-//     );
-// }
 
 let postWebhook = (req, res) => {
     // Parse the request body from the POST
@@ -699,12 +599,5 @@ function handlePostback(sender_psid, received_postback) {
 module.exports = {
   postWebhook: postWebhook,
   getWebhook: getWebhook,
-//   postMessage: postMessage
 };
 
-// module.exports = checkInDB;
-// module.exports = capitalizeFirstLetter;
-// module.exports = countWords;
-// module.exports = countBirthDays;
-// module.exports = extractDate;
-// module.exports = extractName;
