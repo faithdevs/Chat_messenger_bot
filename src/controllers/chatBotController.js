@@ -1,5 +1,6 @@
 require("dotenv").config();
 const request = require("request");
+const response = require("response");
 
 let postWebhook = (req, res) =>{
     // Parse the request body from the POST
@@ -183,19 +184,19 @@ function handleMessage(sender_psid, message) {
 
     if(entityChosen === ""){
         //default
-        callSendAPI(sender_psid,`The bot is needed more training, try to say "thanks a lot" or "hi" to the bot` );
+        callSendAPI(sender_psid, `Say "hi" to get started` );
     }else{
        if(entityChosen === "greetings"){
            //send greetings message
-           callSendAPI(sender_psid,'Hi there! This bot is created by Hary Pham. Watch more videos on HaryPhamDev Channel!');
+           callSendAPI(sender_psid,`Hi 🖐! This bot is created by Faith Ugbeshe`);
        }
        if(entityChosen === "thanks"){
            //send thanks message
-           callSendAPI(sender_psid,`You 're welcome!`);
+           callSendAPI(sender_psid,`You are welcome!`);
        }
         if(entityChosen === "bye"){
             //send bye message
-            callSendAPI(sender_psid,'bye-bye!');
+            callSendAPI(sender_psid,`bye-bye!`);
         }
     }
 }
