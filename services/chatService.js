@@ -73,7 +73,7 @@ const getMessage = async(mode, token, challenge) => {
 }
 
 async function addtoDb(senderId,message) {
-    let messages = await Message.findById(senderId);
+    let messages = await Message.findOne({senderId});
     let msg;
     if(!messages){
              msg = [message]
@@ -84,7 +84,7 @@ async function addtoDb(senderId,message) {
     } else {
             msg = messages.text
             msg.push(message)
-            await Message.update({senderId}, {
+            await Message.updateOne({senderId}, {
                     $set:{
                             text:msg
                     }
