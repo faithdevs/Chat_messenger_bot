@@ -1,13 +1,5 @@
 require("dotenv").config();
-const request = require("request");
 const {sendMessage, getMessage} = require("../../services/chatService")
-// global variables used for conversation information
-let USER_FIRST_NAME = "";
-let USER_BIRTH_DATE = "";
-let LATEST_MESSAGE = "";
-let PREV_OF_LATEST = "";
-let PREV_OF_PREV = "";
-let SENDER_ID = "";
 
 let postWebhook = async (req, res) => {
     // Parse the request body from the POST

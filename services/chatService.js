@@ -1,4 +1,12 @@
 const Message = require("../src/models/message.model");
+const request = require("request");
+// global variables used for conversation information
+let USER_FIRST_NAME = "";
+let USER_BIRTH_DATE = "";
+let LATEST_MESSAGE = "";
+let PREV_OF_LATEST = "";
+let PREV_OF_PREV = "";
+let SENDER_ID = "";
 
 const sendMessage = async(data) => {
     // Check the webhook event is from a Page subscription
