@@ -3,7 +3,7 @@ const express = require("express");
 const viewEngine   = require("./config/viewEngine");
 const initWebRoute = require("./routes/web");
 const bodyParser   = require("body-parser");
-
+const {connection} = require("./config/dbconnection");
 let app = express();
 
 // config view engine
@@ -17,6 +17,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 initWebRoute(app);
 
 let port = process.env.PORT || 8080;
+
+//connect db
+connection();
 
 app.listen(port, ()=>{
    console.log(`App is running at the port ${port}`) ;
