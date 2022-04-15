@@ -4,6 +4,7 @@ const viewEngine   = require("./config/viewEngine");
 const initWebRoute = require("./routes/web");
 const bodyParser   = require("body-parser");
 const {connection} = require("./config/dbconnection");
+const router = require("./routes/api");
 let app = express();
 
 // config view engine
@@ -15,6 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // init all web routes
 initWebRoute(app);
+app.use("api/v1/", router);
 
 let port = process.env.PORT || 8080;
 

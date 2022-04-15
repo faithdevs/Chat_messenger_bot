@@ -1,6 +1,6 @@
 require("dotenv").config();
 const {sendMessage, getMessage} = require("../../services/chatService")
-
+const Messages = require("../models/message.model")
 let postWebhook = async (req, res) => {
     // Parse the request body from the POST
     let body = req.body;
@@ -30,11 +30,31 @@ let getWebhook = async (req, res) => {
 };
 
 // Sends response messages via the Send API
+const testDB = async (req, res) => {
+    try{
+        const insert = await Message.create({
+            senderId: "test",
+            text: ["test"]
+        })
 
+        return res.status(200).json({
+            error: false,
+            message: "success",
+            data: insert,
+        })
+    }catch(error){
+        console.log(error);
+        return res.status(500).json({
+            error: true,
+            message: error.getMessage()
+        })
+    }
+}
 
 
 module.exports = {
   postWebhook: postWebhook,
   getWebhook: getWebhook,
+  testDB: testDB,
 };
 
