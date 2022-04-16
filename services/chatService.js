@@ -80,7 +80,7 @@ async function addtoDb(senderId,message) {
             
             const result = await Message.create({
                     senderId,
-                    text: message   
+                    text: [message] 
                         
     })
     console.log(result)
