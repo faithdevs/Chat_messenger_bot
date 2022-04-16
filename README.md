@@ -45,9 +45,13 @@ The connection string that you have right now is the DB_CONNECTION from the .env
 
 ### Run Application 
 ```npm start``` to run project 
+  - Open localhost://8080 on your browser to view the application.
+  - Note: The facebook chatbot plugin wont work with localhost, it has to be deployed to a live server (heroku) to access the facebook webhook. 
+  
 #### Storage of messages
 
 All the messages received from users are stored in a MongoDB database. Each website visitor has an unique id assigned on commencement of a Messenger conversation, making the storage of messages structured in an easy way.
+![image](https://user-images.githubusercontent.com/47572498/163678716-34c81532-865a-4b74-aa5c-4bd76f80bf25.png)
 
 #### 2 To deploy to Heroku app
 - Deploy app to Heroku ( need to setup dev dependencies:
