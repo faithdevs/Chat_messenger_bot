@@ -80,13 +80,13 @@ async function addtoDb(senderId,message) {
             
             const result = await Message.create({
                     senderId,
-                    text: [message] 
+                    text: [message.text] 
                         
     })
     console.log(result)
     } else {
            let msg = messages.text
-           msg.push(message)
+           msg.push(message.text)
             await Message.updateOne({senderId}, {
                     $set:{
                             text:msg
